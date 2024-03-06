@@ -4,7 +4,7 @@
 #include <dlfcn.h>
 
 
-#define SERVO_COUNT 8
+#define SERVO_COUNT 1
 
 
 int main(int argc, char **argv)
@@ -74,22 +74,13 @@ int main(int argc, char **argv)
       return 1;
   }
 
-
-
-
   while (ros::ok())
   {
-    // Update servo positions here as needed
-    for(int i = 0; i < SERVO_COUNT; i++) {
-        positions.data[i] = i * 10; // Example position update
+    for(int i = 0; i < SERVO_COUNT ; i++) {
+        positions.data[i] = posRead(i+1); // Servo IDs are 1-indexed
     }
 
-    // Publish the message
     servo_pub.publish(positions);
-
-    for(int i = 0; i < SERVO_COUNT; i++) {
-        ROS_INFO("Servo %d position: %d", i, positions.data[i]);
-    }
 
     ros::spinOnce();
 

@@ -1,8 +1,0 @@
-[35m[1mScanning dependencies of target servo_node[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/servo_node.dir/src/servo_node.cpp.o[0m
-[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
-[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:56:15:[m[K [01;35m[Kwarning: [m[KISO C++ forbids converting a string constant to ‘[01m[Kchar*[m[K’ [[01;35m[K-Wwrite-strings[m[K]
-   56 |   if (IO_init([01;35m[K"/dev/ttyUSB0"[m[K) != 0) {
-      |               [01;35m[K^~~~~~~~~~~~~~[m[K
-[100%] [32m[1mLinking CXX executable /root/dev/robot/catkin_ws/devel/.private/servo/lib/servo/servo_node[0m
-[100%] Built target servo_node
