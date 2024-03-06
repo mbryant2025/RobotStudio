@@ -1,0 +1,10 @@
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:56:37:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kbool init_successful[m[K’
+   56 |   bool init_successful = false;bool [01;31m[Kinit_successful[m[K = false;
+      |                                     [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:56:8:[m[K [01;36m[Knote: [m[K‘[01m[Kbool init_successful[m[K’ previously declared here
+   56 |   bool [01;36m[Kinit_successful[m[K = false;bool init_successful = false;
+      |        [01;36m[K^~~~~~~~~~~~~~~[m[K
+make[2]: *** [CMakeFiles/servo_node.dir/build.make:63: CMakeFiles/servo_node.dir/src/servo_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:209: CMakeFiles/servo_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

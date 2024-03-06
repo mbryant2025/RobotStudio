@@ -1,0 +1,4 @@
+[35m[1mScanning dependencies of target servo_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/servo_node.dir/src/servo_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /root/dev/robot/catkin_ws/devel/.private/servo/lib/servo/servo_node[0m
+[100%] Built target servo_node
