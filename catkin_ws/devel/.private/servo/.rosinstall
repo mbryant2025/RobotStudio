@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /root/dev/robot/catkin_ws/devel/.private/servo/setup.sh

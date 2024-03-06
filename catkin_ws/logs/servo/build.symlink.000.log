@@ -1,0 +1,4 @@
+Symlinking /root/dev/robot/catkin_ws/devel/lib/pkgconfig/servo.pc
+Symlinking /root/dev/robot/catkin_ws/devel/lib/servo/servo_node
+Symlinking /root/dev/robot/catkin_ws/devel/share/servo/cmake/servoConfig-version.cmake
+Symlinking /root/dev/robot/catkin_ws/devel/share/servo/cmake/servoConfig.cmake

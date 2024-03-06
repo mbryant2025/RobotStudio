@@ -1,0 +1,8 @@
+prefix=/root/dev/robot/catkin_ws/devel/.private/servo
+
+Name: servo
+Description: Description of servo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

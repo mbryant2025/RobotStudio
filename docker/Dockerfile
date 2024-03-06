@@ -33,7 +33,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN sudo pip3 install -U \
     rosdep \
-    rosinstall_generator
+    rosinstall_generator \
+    catkin_tools
 
 # Make LX16A servo library
 RUN cd /opt && \
