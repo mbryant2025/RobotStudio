@@ -7,12 +7,13 @@
 #define SERVO_COUNT 1
 
 
+
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "servo");
   ros::NodeHandle n;
 
-  // Create a publisher object
+  // Publishers for the servo positions and the servo command
   ros::Publisher servo_pub = n.advertise<std_msgs::Int32MultiArray>("servo_positions", 1000);
 
   ros::Rate loop_rate(10);
@@ -20,6 +21,7 @@ int main(int argc, char **argv)
   std_msgs::Int32MultiArray positions;
   positions.data.resize(SERVO_COUNT);
 
+  // Load the shared library
   void* lib = dlopen("/opt/LX16A/lx16a.so", RTLD_NOW);
   if (!lib) {
     ROS_ERROR("Failed to load the shared library: %s", dlerror());
@@ -62,6 +64,12 @@ int main(int argc, char **argv)
       if (IO_init(device_c_str) == 1) {
           ROS_INFO("Successfully initialized the servo controller with device: %s", device_c_str);
           init_successful = true;
+
+          // Set the servos to servo mode
+          for(int i = 0; i < SERVO_COUNT ; i++) {
+              setServoMode(i+1); // Servo IDs are 1-indexed
+          }
+
           delete[] device_c_str;
           break;
       }
