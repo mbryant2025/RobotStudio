@@ -36,6 +36,9 @@ RUN sudo pip3 install -U \
     rosinstall_generator \
     catkin_tools
 
+# Symbolic link for Python 1
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 # Make LX16A servo library
 RUN cd /opt && \
     git clone https://github.com/rjk2147/LX16A.git && \

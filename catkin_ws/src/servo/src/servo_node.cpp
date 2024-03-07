@@ -5,6 +5,7 @@
 
 
 #define SERVO_COUNT 2
+#define SCALE_FACTOR 4 // The data we send to the servo is 4*degrees
 
 
 std_msgs::Int32MultiArray command_positions;
@@ -29,7 +30,7 @@ int main(int argc, char **argv)
 
   // Publishers for the servo positions and the servo command
   ros::Publisher servo_pub = n.advertise<std_msgs::Int32MultiArray>("servo_positions", 1000);
-  ros::Subscriber servo_command_sub = n.subscribe("servo_command", 1000, servoCommandCallback);
+  ros::Subscriber servo_command_sub = n.subscribe("servo_commands", 1000, servoCommandCallback);
 
   std_msgs::Int32MultiArray positions;
   positions.data.resize(SERVO_COUNT);
@@ -122,7 +123,7 @@ int main(int argc, char **argv)
 
     if (counter == 0) {
         for(int i = 0; i < SERVO_COUNT ; i++) {
-            positions.data[i] = posRead(i+1); // Servo IDs are 1-indexed
+            positions.data[i] = posRead(i+1)/SCALE_FACTOR; // Servo IDs are 1-indexed
         }
         servo_pub.publish(positions);
     }
@@ -130,7 +131,7 @@ int main(int argc, char **argv)
 
     // Command the servos
     for(int i = 0; i < SERVO_COUNT ; i++) {
-        move(i+1, 4*command_positions.data[i], 100);
+        move(i+1, SCALE_FACTOR*command_positions.data[i], 100);
     }
 
     servo_pub.publish(positions);
