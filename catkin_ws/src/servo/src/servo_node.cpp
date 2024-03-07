@@ -4,7 +4,7 @@
 #include <dlfcn.h>
 
 
-#define SERVO_COUNT 1
+#define SERVO_COUNT 2
 
 
 std_msgs::Int32MultiArray command_positions;
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
   // Initialize the command_positions
   command_positions.data.resize(SERVO_COUNT);
   for(int i = 0; i < SERVO_COUNT ; i++) {
-      command_positions.data[i] = 0;
+      command_positions.data[i] = 45;
   }
 
   ros::Rate loop_rate(10);
@@ -130,11 +130,8 @@ int main(int argc, char **argv)
 
     // Command the servos
     for(int i = 0; i < SERVO_COUNT ; i++) {
-        move(i+1, command_positions.data[i], 100);
+        move(i+1, 4*command_positions.data[i], 100);
     }
-
-    ROS_INFO("Servo positions: [%d]", positions.data[0]);
-    ROS_INFO("Servo commands: [%d]", command_positions.data[0]);
 
     servo_pub.publish(positions);
 
