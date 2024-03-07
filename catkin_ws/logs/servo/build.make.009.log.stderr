@@ -1,4 +1,0 @@
-[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
-[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:56:15:[m[K [01;35m[Kwarning: [m[KISO C++ forbids converting a string constant to ‘[01m[Kchar*[m[K’ [[01;35m[K-Wwrite-strings[m[K]
-   56 |   if (IO_init([01;35m[K"/dev/ttyUSB0"[m[K) != 0) {
-      |               [01;35m[K^~~~~~~~~~~~~~[m[K
