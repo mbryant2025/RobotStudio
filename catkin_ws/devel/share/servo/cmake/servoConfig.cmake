@@ -1,1 +1,0 @@
-/root/dev/robot/catkin_ws/devel/.private/servo/share/servo/cmake/servoConfig.cmake
