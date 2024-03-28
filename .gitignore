@@ -2,3 +2,5 @@
 *.log
 .vscode/
 *devel/
+
+*.DS_Store
