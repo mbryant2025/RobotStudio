@@ -10,11 +10,16 @@ def get_local_ip():
     return r
 
 
+def get_password():
+    with open('/home/robot/password.txt', 'r') as file:
+        return file.read().strip()
+
+
 port = 465
 smtp_server = 'smtp.gmail.com'
 sender_email = 'mbryant2025@gmail.com'
 receiver_email = 'mbryant2025@gmail.com'
-password = ''
+password = get_password()
 message = f'''\
 Subject: Robot IP Update
 
