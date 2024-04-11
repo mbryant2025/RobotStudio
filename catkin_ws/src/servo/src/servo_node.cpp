@@ -7,6 +7,10 @@
 #define SERVO_COUNT 2
 #define SCALE_FACTOR 4 // The data we send to the servo is 4*degrees
 
+// Motor min and max values for each of the motors
+std::vector<int> motor_mins = {0, 0, 0, 0, 0, 0, 0, 0};
+std::vector<int> motor_maxs = {180, 180, 180, 180, 180, 180, 180, 180};
+
 
 std_msgs::Int32MultiArray command_positions;
 
@@ -129,9 +133,16 @@ int main(int argc, char **argv)
     }
     counter = (counter + 1) % 10;
 
-    // Command the servos
+    // Command the servos, keeping in mind the min and max values
     for(int i = 0; i < SERVO_COUNT ; i++) {
-        move(i+1, SCALE_FACTOR*command_positions.data[i], 100);
+        int position_scaled = command_positions.data[i] * SCALE_FACTOR;
+        if (position_scaled < motor_mins[i]) {
+            position_scaled = motor_mins[i];
+        }
+        if (position_scaled > motor_maxs[i]) {
+            position_scaled = motor_maxs[i];
+        }
+        move(i+1, position_scaled, 100); // Servo IDs are 1-indexed
     }
 
     servo_pub.publish(positions);
