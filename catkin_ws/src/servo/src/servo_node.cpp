@@ -8,12 +8,17 @@
 #define SCALE_FACTOR 4 // The data we send to the servo is 4*degrees
 
 // Motor min and max values for each of the motors
-std::vector<int> motor_mins = {0, 0, 0, 0, 0, 0, 0, 0};
-std::vector<int> motor_maxs = {180, 180, 180, 180, 180, 180, 180, 180};
+std::vector<int> motor_mins = {0, 25, 0, 20, -4, 45, 6, 30};
+std::vector<int> motor_maxs = {90, 60, 90, 50, 89, 80, 100, 65};
 
+std::vector<int> motor_offsets = {0, 0, 0, 0, 0, 0, 0, 0}; // For calibrating the sides relative to each other
 
 std_msgs::Int32MultiArray command_positions;
 
+
+// Send values -1 to 1
+// -1 Is full leg up
+// 1 Is full leg down
 void servoCommandCallback(const std_msgs::Int32MultiArray::ConstPtr& msg)
 {
     if (msg->data.size() == SERVO_COUNT) {
@@ -42,7 +47,7 @@ int main(int argc, char **argv)
   // Initialize the command_positions
   command_positions.data.resize(SERVO_COUNT);
   for(int i = 0; i < SERVO_COUNT ; i++) {
-      command_positions.data[i] = 45;
+      // command_positions.data[i] = 45;
   }
 
   ros::Rate loop_rate(10);
@@ -53,12 +58,6 @@ int main(int argc, char **argv)
     ROS_ERROR("Failed to load the shared library: %s", dlerror());
     return 1;
   }
-
-  // Exposes the following functions:
-  // int IO_init(char* filename);
-  // short posRead(char id);
-  // void setServoMode(char id);
-  // void move(char id, short position, short time)
 
   // int IO_init(char* filename);
   typedef int (*IO_init_t)(char*);
@@ -135,14 +134,19 @@ int main(int argc, char **argv)
 
     // Command the servos, keeping in mind the min and max values
     for(int i = 0; i < SERVO_COUNT ; i++) {
-        int position_scaled = command_positions.data[i] * SCALE_FACTOR;
+
+      // command_positions will be in the range -1 to 1
+      // We need to scale it between the min and max values, apply the offset as well
+
+        int position_scaled = (command_positions.data[i] + 1) * (motor_maxs[i] - motor_mins[i]) / 2 + motor_mins[i] + motor_offsets[i];
         if (position_scaled < motor_mins[i]) {
             position_scaled = motor_mins[i];
         }
         if (position_scaled > motor_maxs[i]) {
             position_scaled = motor_maxs[i];
         }
-        move(i+1, position_scaled, 100); // Servo IDs are 1-indexed
+        ROS_INFO("Setting servo %d to position %d", i, position_scaled);
+        // move(i+1, position_scaled, 100); // Servo IDs are 1-indexed
     }
 
     servo_pub.publish(positions);
