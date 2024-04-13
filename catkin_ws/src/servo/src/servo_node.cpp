@@ -4,12 +4,14 @@
 #include <dlfcn.h>
 
 
-#define SERVO_COUNT 2
+#define SERVO_COUNT 8
 #define SCALE_FACTOR 4 // The data we send to the servo is 4*degrees
 
 // Motor min and max values for each of the motors
 std::vector<int> motor_mins = {0, 25, 0, 20, -4, 45, 6, 30};
 std::vector<int> motor_maxs = {90, 60, 90, 50, 89, 80, 100, 65};
+
+std::vector<int> motor_directions = {1, 1, 1, 1, 1, 1, 1, 1}; // Negate such that -1 will be moving the leg down and 1 will be moving the leg up
 
 std::vector<int> motor_offsets = {0, 0, 0, 0, 0, 0, 0, 0}; // For calibrating the sides relative to each other
 
@@ -138,7 +140,7 @@ int main(int argc, char **argv)
       // command_positions will be in the range -1 to 1
       // We need to scale it between the min and max values, apply the offset as well
 
-        int position_scaled = (command_positions.data[i] + 1) * (motor_maxs[i] - motor_mins[i]) / 2 + motor_mins[i] + motor_offsets[i];
+        int position_scaled = (motor_directions[i] * command_positions.data[i] + 1) * (motor_maxs[i] - motor_mins[i]) / 2 + motor_mins[i] + motor_offsets[i];
         if (position_scaled < motor_mins[i]) {
             position_scaled = motor_mins[i];
         }
