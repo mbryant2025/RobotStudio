@@ -47,64 +47,55 @@ def trot():
         servo_commands_msg = Float32MultiArray(data=servo_command_values)
         servo_commands_pub.publish(servo_commands_msg)
 
-        rospy.sleep(2)
+        rospy.sleep(0.8)
 
-        # Lift up the front right femur
-        servo_command_values[6] = 0.35
+        # Lift up the front femurs
+        servo_command_values[FRONT_RIGHT_FEMUR] = 0.15
+        servo_command_values[FRONT_LEFT_FEMUR] = 0.15
+
         servo_commands_msg = Float32MultiArray(data=servo_command_values)
         servo_commands_pub.publish(servo_commands_msg)
 
-        rospy.sleep(0.8)
+        rospy.sleep(0.4)
 
-        # Drop down the leg
-        servo_command_values[7] = -0.95
+        # Drop down the legs
+        servo_command_values[FRONT_RIGHT_LOWER_LEG] = -0.95
+        servo_command_values[FRONT_LEFT_LOWER_LEG] = -0.95
+
         servo_commands_msg = Float32MultiArray(data=servo_command_values)
         servo_commands_pub.publish(servo_commands_msg)
 
-        rospy.sleep(0.8)
+        rospy.sleep(0.4)
 
-        # Lift up the front left femur
-        servo_command_values[2] = 0.35
+
+        # Lift up the back femurs
+        servo_command_values[BACK_RIGHT_FEMUR] = 0.15
+        servo_command_values[BACK_LEFT_FEMUR] = 0.15
         servo_commands_msg = Float32MultiArray(data=servo_command_values)
         servo_commands_pub.publish(servo_commands_msg)
 
-        rospy.sleep(0.8)
+        rospy.sleep(0.4)
 
-        # Drop down the leg
-        servo_command_values[3] = -0.95
+        # Drop down the legs
+        servo_command_values[BACK_RIGHT_LOWER_LEG] = -0.95
+        servo_command_values[BACK_LEFT_LOWER_LEG] = -0.95
+
         servo_commands_msg = Float32MultiArray(data=servo_command_values)
         servo_commands_pub.publish(servo_commands_msg)
 
-        rospy.sleep(0.8)
+        rospy.sleep(0.4)
 
+        # # Lift up the back left femur
+        # servo_commands_msg = Float32MultiArray(data=servo_command_values)
+        # servo_commands_pub.publish(servo_commands_msg)
 
-        # Lift up the back right femur
-        servo_command_values[4] = 0.35
-        servo_commands_msg = Float32MultiArray(data=servo_command_values)
-        servo_commands_pub.publish(servo_commands_msg)
+        # rospy.sleep(0.4)
 
-        rospy.sleep(0.8)
+        # # Drop down the leg
+        # servo_commands_msg = Float32MultiArray(data=servo_command_values)
+        # servo_commands_pub.publish(servo_commands_msg)
 
-        # Drop down the leg
-        servo_command_values[5] = -0.95
-        servo_commands_msg = Float32MultiArray(data=servo_command_values)
-        servo_commands_pub.publish(servo_commands_msg)
-
-        rospy.sleep(0.8)
-
-        # Lift up the back left femur
-        servo_command_values[0] = 0.35
-        servo_commands_msg = Float32MultiArray(data=servo_command_values)
-        servo_commands_pub.publish(servo_commands_msg)
-
-        rospy.sleep(0.8)
-
-        # Drop down the leg
-        servo_command_values[1] = -0.95
-        servo_commands_msg = Float32MultiArray(data=servo_command_values)
-        servo_commands_pub.publish(servo_commands_msg)
-
-        rospy.sleep(0.8)
+        # rospy.sleep(0.4)
 
         # Now we will trot while the parameter is set to True
         rospy.loginfo("Trotting...")
@@ -112,63 +103,54 @@ def trot():
         # What instructions to execute every timestep
         instructions_dict_1 = [
             {
-                BACK_LEFT_LOWER_LEG: 0.9, # Lift up the lower legs
-                FRONT_RIGHT_LOWER_LEG: 0.9
+                BACK_LEFT_LOWER_LEG: 0.9-0.05, # Lift up the lower legs
+                FRONT_RIGHT_LOWER_LEG: 0.9,
+                BACK_LEFT_FEMUR: 0.7-0.2, # Lift up the femurs
+                FRONT_RIGHT_FEMUR: 0.7
             },
 
             {
-                BACK_LEFT_FEMUR: -0.5, # Throw forward the femurs
-                FRONT_RIGHT_FEMUR: -0.5
+                BACK_LEFT_FEMUR: -0.7-0.2, # Throw forward the femurs
+                FRONT_RIGHT_FEMUR: -0.7
             },
 
             {
-                BACK_LEFT_LOWER_LEG: -0.55, # Drop down the lower legs
+                BACK_LEFT_LOWER_LEG: -0.55-0.2, # Drop down the lower legs
                 FRONT_RIGHT_LOWER_LEG: -0.55
             },
 
             {
-                BACK_LEFT_FEMUR: 0.35, # Bring back to starting position
-                BACK_LEFT_LOWER_LEG: -0.95,
+                BACK_LEFT_FEMUR: 0.15-0.1, # Bring back to starting position
+                BACK_LEFT_LOWER_LEG: -0.95-0.03,
             },
+
+            {},
 
             {
                 
-                FRONT_RIGHT_FEMUR: 0.35, # Bring back to starting position pt 2
+                FRONT_RIGHT_FEMUR: 0.15, # Bring back to starting position pt 2
                 FRONT_RIGHT_LOWER_LEG: -0.95
             }
         ]
 
-        instructions_dict_2 = [
-            {
-                BACK_RIGHT_LOWER_LEG: 0.9,
-                FRONT_LEFT_LOWER_LEG: 0.9
-            },
+        # Create the second instructions as a clone of the first, but we replace the front rights with from lefts, and such
+        segment_map = {
+            BACK_LEFT_LOWER_LEG: BACK_RIGHT_LOWER_LEG,
+            FRONT_RIGHT_LOWER_LEG: FRONT_LEFT_LOWER_LEG,
+            BACK_LEFT_FEMUR: BACK_RIGHT_FEMUR,
+            FRONT_RIGHT_FEMUR: FRONT_LEFT_FEMUR
+        }
 
-            {
-                BACK_RIGHT_FEMUR: -0.5,
-                FRONT_LEFT_FEMUR: -0.5
-            },
+        instructions_dict_2 = []
 
-            {
-                BACK_RIGHT_LOWER_LEG: -0.55,
-                FRONT_LEFT_LOWER_LEG: -0.55
-            },
-
-            {
-                BACK_RIGHT_FEMUR: 0.35,
-                BACK_RIGHT_LOWER_LEG: -0.95
-            },
-
-            {
-                FRONT_LEFT_FEMUR: 0.35,
-                FRONT_LEFT_LOWER_LEG: -0.95
-            }
-        ]
+        for instruction in instructions_dict_1:
+            new_instruction = {}
+            for servo, value in instruction.items():
+                new_instruction[segment_map[servo]] = value
+            instructions_dict_2.append(new_instruction)
+           
 
         instruction_offset = 3 # The delay in index between the two instructions
-
-
-
 
 
         while not rospy.is_shutdown():
@@ -189,32 +171,11 @@ def trot():
                 servo_commands_msg = Float32MultiArray(data=servo_command_values)
                 servo_commands_pub.publish(servo_commands_msg)
 
+                # rospy.sleep(0.08)
                 rospy.sleep(0.1)
 
                 if rospy.is_shutdown():
                     break
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-
 
 
 
