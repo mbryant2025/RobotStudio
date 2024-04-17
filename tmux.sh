@@ -25,10 +25,10 @@ tmux send-keys 'source setup.bash && rostopic echo /servo_commands'
 
 tmux select-pane -t 3
 tmux send-keys 'cd catkin_ws/devel' C-m
-tmux send-keys 'source setup.bash'
+tmux send-keys 'source setup.bash && rosrun servo trot.py'
 
 # Set the default pane
-tmux select-pane -t 1
+tmux select-pane -t 3
 
 # Attach to the tmux session
 tmux attach-session -t robot

@@ -1,0 +1,16 @@
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:138:7:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kint i[m[K’
+  138 |   int [01;31m[Ki[m[K = 3;
+      |       [01;31m[K^[m[K
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:131:7:[m[K [01;36m[Knote: [m[K‘[01m[Kint i[m[K’ previously declared here
+  131 |   int [01;36m[Ki[m[K = 2;
+      |       [01;36m[K^[m[K
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:139:7:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kint x[m[K’
+  139 |   int [01;31m[Kx[m[K = (motor_directions[i] * command_positions.data[i] + 1) * (motor_maxs[i] - motor_mins[i]) / 2 + motor_mins[i] + motor_offsets[i];
+      |       [01;31m[K^[m[K
+[01m[K/root/dev/robot/catkin_ws/src/servo/src/servo_node.cpp:132:7:[m[K [01;36m[Knote: [m[K‘[01m[Kint x[m[K’ previously declared here
+  132 |   int [01;36m[Kx[m[K = (motor_directions[i] * command_positions.data[i] + 1) * (motor_maxs[i] - motor_mins[i]) / 2 + motor_mins[i] + motor_offsets[i];
+      |       [01;36m[K^[m[K
+make[2]: *** [CMakeFiles/servo_node.dir/build.make:63: CMakeFiles/servo_node.dir/src/servo_node.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:209: CMakeFiles/servo_node.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2
