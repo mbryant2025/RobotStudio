@@ -75,35 +75,53 @@ def around(rotations):
             servo_commands_msg = Float32MultiArray(data=servo_command_values)
             servo_commands_pub.publish(servo_commands_msg)
 
-            rospy.sleep(0.5)
+            rospy.sleep(0.3)
+
+            servo_command_values[FRONT_LEFT_FEMUR] = 0.95
+
+            servo_commands_msg = Float32MultiArray(data=servo_command_values)
+            servo_commands_pub.publish(servo_commands_msg)
+
+            rospy.sleep(0.3)
+
+
+            servo_command_values[BACK_LEFT_FEMUR] = 0.95
+
+            servo_commands_msg = Float32MultiArray(data=servo_command_values)
+            servo_commands_pub.publish(servo_commands_msg)
+
+            rospy.sleep(0.3)
 
             servo_command_values[FRONT_RIGHT_FEMUR] = -0.95 # Restore
-            servo_command_values[FRONT_LEFT_FEMUR] = 0.95 # At the same time, bring down the next one
+            servo_command_values[BACK_RIGHT_FEMUR] = 0.95
+
 
             servo_commands_msg = Float32MultiArray(data=servo_command_values)
             servo_commands_pub.publish(servo_commands_msg)
 
-            rospy.sleep(0.5)
+            rospy.sleep(0.3)
 
             servo_command_values[FRONT_LEFT_FEMUR] = -0.95 # Restore
-            servo_command_values[BACK_LEFT_FEMUR] = 0.95 # At the same time, bring down the next one
 
             servo_commands_msg = Float32MultiArray(data=servo_command_values)
             servo_commands_pub.publish(servo_commands_msg)
 
-            rospy.sleep(0.5)
+
+            rospy.sleep(0.3)
 
             servo_command_values[BACK_LEFT_FEMUR] = -0.95 # Restore
-            servo_command_values[BACK_RIGHT_FEMUR] = 0.95 # At the same time, bring down the next one
 
             servo_commands_msg = Float32MultiArray(data=servo_command_values)
             servo_commands_pub.publish(servo_commands_msg)
 
-            rospy.sleep(0.5)
+
+            rospy.sleep(0.3)
 
             servo_command_values[BACK_RIGHT_FEMUR] = -0.95 # Restore
 
-            rospy.sleep(0.5)
+            servo_commands_msg = Float32MultiArray(data=servo_command_values)
+            servo_commands_pub.publish(servo_commands_msg)
+
 
 
 def punch(num_iterations):
@@ -141,7 +159,35 @@ def punch(num_iterations):
             rospy.sleep(0.5)
 
             
+def cry(num_iterations):
 
+    # Move front right femur up and down
+    for _ in range(num_iterations):
+
+        servo_command_values = [-0.95, 0.95, -0.95, 0.95, -0.95, 0.95, -0.95, 0.95]
+
+        servo_command_values[FRONT_RIGHT_FEMUR] = 0.95
+
+        servo_commands_msg = Float32MultiArray(data=servo_command_values)
+        servo_commands_pub.publish(servo_commands_msg)
+
+        rospy.sleep(0.3)
+
+        servo_command_values[FRONT_RIGHT_FEMUR] = 0
+
+        servo_commands_msg = Float32MultiArray(data=servo_command_values)
+        servo_commands_pub.publish(servo_commands_msg)
+
+        rospy.sleep(0.3)
+
+    rospy.sleep(1)
+
+    servo_command_values = [-0.95, 0.95, -0.95, 0.95, -0.95, 0.95, -0.95, 0.95]
+
+    servo_command_values[FRONT_RIGHT_FEMUR] = 0.95
+
+    servo_commands_msg = Float32MultiArray(data=servo_command_values)
+    servo_commands_pub.publish(servo_commands_msg)
 
 
             
@@ -206,27 +252,31 @@ def dance():
         rospy.loginfo("Dancing...")
 
         if not rospy.is_shutdown():
-            # back()
+            back()
 
-            # rospy.sleep(1)
+            rospy.sleep(1)
 
-            # punch(3)
-
-            # rospy.sleep(0.5)
-
-            # kneel()
-
-            # rospy.sleep(2)
-
-            # stand()
-
-            # rospy.sleep(2)
-
-            # down()
+            punch(10)
 
             rospy.sleep(0.5)
 
-            around(3)
+            kneel()
+
+            rospy.sleep(2)
+
+            stand()
+
+            rospy.sleep(2)
+
+            down()
+
+            rospy.sleep(1.3)
+
+            around(1)
+
+            rospy.sleep(2.6)
+
+            cry(3)
 
             rospy.sleep(20)
 
