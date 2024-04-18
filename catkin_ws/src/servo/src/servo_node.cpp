@@ -16,7 +16,8 @@ std::vector<int> motor_maxs = {90, 60, 90, 50, 89, 86, 100, 65};
 
 std::vector<int> motor_directions = {1, -1, 1, -1, -1, 1, -1, 1}; // Negate such that -1 will be moving the leg down and 1 will be moving the leg up
 
-std::vector<int> motor_offsets = {-11, -11, -11, -11, 0, 0, 0, 0}; // For calibrating the sides relative to each other
+// std::vector<int> motor_offsets = {-11, -11, -11, -11, 0, 0, 0, 0}; // For calibrating the sides relative to each other
+std::vector<int> motor_offsets = {0,0,0,0, 0, 0, 0, 0}; // For calibrating the sides relative to each other
 
 std_msgs::Float32MultiArray command_positions;
 
