@@ -260,8 +260,6 @@ def surge(num_iterations):
 
         rospy.sleep(0.6)
 
-    rospy.sleep(0.6)
-
     servo_command_values = [-0.95, 0.95, -0.95, 0.95, -0.95, 0.95, -0.95, 0.95]
 
     servo_commands_msg = Float32MultiArray(data=servo_command_values)
@@ -353,27 +351,19 @@ def dance():
 
             cry(6)
 
-            rospy.sleep(2.5)
+            rospy.sleep(0.3)
 
-            wave(4)
+            surge(5)
 
-            rospy.sleep(0.7)
+            rospy.sleep(0.3)
 
-            surge(4)
-
-            rospy.sleep(0.5)
-
+            punch(7)
+           
             back()
-
-            rospy.sleep(1)
-
-            punch(10)
-
-            rospy.sleep(0.5)
 
             kneel()
 
-            rospy.sleep(2.1)
+            rospy.sleep(1.0)
 
             stand()
 
@@ -387,25 +377,9 @@ def dance():
 
             rospy.sleep(2.6)
 
-            cry(9)
+            cry(3)
 
-            rospy.sleep(2.9)
-
-            stand()
-
-            rospy.sleep(2)
-
-            down()
-
-            rospy.sleep(1.3)
-
-            around(1)
-
-            rospy.sleep(2.6)
-
-            cry(6)
-
-            rospy.sleep(1)
+            rospy.sleep(0.5)
 
             back()
 
